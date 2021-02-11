@@ -1,0 +1,36 @@
+buildscript {
+    //start of custome
+    ext.kotlin_version = '1.3.61'
+    //end of custome
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        //classpath 'com.android.tools.build:gradle:3.2.1' asal
+        classpath 'com.android.tools.build:gradle:3.3.2'
+        //start of custome
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        //end of custome
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
